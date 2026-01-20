@@ -1,0 +1,4 @@
+# Ignore non-frontend workspaces
+apps/api
+apps/live
+apps/proxy
