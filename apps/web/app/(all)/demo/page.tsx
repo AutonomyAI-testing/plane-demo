@@ -1,9 +1,10 @@
+"use client";
+
 import React from "react";
 // plane imports
 import { cn } from "@plane/utils";
 // ui components
-import { Button } from "@plane/ui";
-import { Card, ECardSpacing, ECardVariant } from "@plane/ui";
+import { Button, Card, ECardSpacing, ECardVariant } from "@plane/ui";
 // components
 import { PageHead } from "@/components/core/page-title";
 
