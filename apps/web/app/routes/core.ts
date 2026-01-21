@@ -370,6 +370,12 @@ export const coreRoutes: RouteConfigEntry[] = [
       route("profile/notifications", "./(all)/profile/notifications/page.tsx"),
       route("profile/security", "./(all)/profile/security/page.tsx"),
     ]),
+
+    // --------------------------------------------------------------------
+    // DEMO PAGE
+    // --------------------------------------------------------------------
+
+    layout("./(all)/demo/layout.tsx", [route("demo", "./(all)/demo/page.tsx")]),
   ]),
 
   // ========================================================================
