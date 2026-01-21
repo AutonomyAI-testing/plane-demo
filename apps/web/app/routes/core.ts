@@ -372,6 +372,9 @@ export const coreRoutes: RouteConfigEntry[] = [
     ]),
   ]),
 
+  // Demo Page
+  layout("./(all)/demo/layout.tsx", [route("demo", "./(all)/demo/page.tsx")]),
+
   // ========================================================================
   // REDIRECT ROUTES
   // ========================================================================
