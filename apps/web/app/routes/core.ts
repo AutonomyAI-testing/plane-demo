@@ -26,6 +26,12 @@ export const coreRoutes: RouteConfigEntry[] = [
   // Create Workspace
   layout("./(all)/create-workspace/layout.tsx", [route("create-workspace", "./(all)/create-workspace/page.tsx")]),
 
+  // Demo
+  layout("./(all)/demo/layout.tsx", [route("demo", "./(all)/demo/page.tsx")]),
+
+  // Demo New
+  layout("./(all)/demo-new/layout.tsx", [route("demo-new", "./(all)/demo-new/page.tsx")]),
+
   // Onboarding
   layout("./(all)/onboarding/layout.tsx", [route("onboarding", "./(all)/onboarding/page.tsx")]),
 
