@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { useTheme } from "next-themes";
 import { SWRConfig } from "swr";
 // Plane Imports
