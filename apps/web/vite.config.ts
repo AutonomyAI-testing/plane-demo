@@ -22,6 +22,9 @@ export default defineConfig(() => ({
     assetsInlineLimit: 0,
   },
   plugins: [reactRouter(), tsconfigPaths({ projects: [path.resolve(__dirname, "tsconfig.json")] })],
+  optimizeDeps: {
+    force: true,
+  },
   resolve: {
     alias: {
       // Next.js compatibility shims used within web
@@ -33,7 +36,7 @@ export default defineConfig(() => ({
   },
   server: {
     host: true as true,
-    allowedHosts:true as true,
+    allowedHosts: true as true,
   },
   // No SSR-specific overrides needed; alias resolves to ESM build
 }));
