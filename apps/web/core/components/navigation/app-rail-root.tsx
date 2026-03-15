@@ -11,7 +11,7 @@ import { AppSidebarItem } from "@/components/sidebar/sidebar-item";
 import { useAppRailPreferences } from "@/hooks/use-navigation-preferences";
 import { useAppRailVisibility } from "@/lib/app-rail/context";
 // plane web imports
-import { DesktopSidebarWorkspaceMenu } from "@/plane-web/components/desktop";
+import { DesktopSidebarWorkspaceMenu, DesktopUserMenu } from "@/plane-web/components/desktop";
 // local imports
 import { AppSidebarItemsRoot } from "./items-root";
 
@@ -37,25 +37,36 @@ export const AppRailRoot = observer(() => {
     >
       <ContextMenu>
         <ContextMenu.Trigger className="h-full">
-          <div className="flex flex-col justify-between gap-4 px-2 py-3 h-full">
-            <div
-              className={cn("flex flex-col", {
+          <div
+            className={cn(
+              "flex flex-col justify-between gap-4 px-2 py-3 h-full",
+              {
                 "gap-4": showLabel,
                 "gap-3": !showLabel,
-              })}
-            >
-              <DesktopSidebarWorkspaceMenu />
-              <AppSidebarItemsRoot showLabel={showLabel} />
-              <div className="border-t border-strong mx-2" />
-              <AppSidebarItem
-                item={{
-                  label: "Settings",
-                  icon: <SettingsIcon className="size-5" />,
-                  href: `/${workspaceSlug}/settings`,
-                  isActive: isSettingsPath,
-                  showLabel,
-                }}
-              />
+              }
+            )}
+          >
+              <div
+                className={cn("flex flex-col", {
+                  "gap-4": showLabel,
+                  "gap-3": !showLabel,
+                })}
+              >
+                <DesktopSidebarWorkspaceMenu />
+                <AppSidebarItemsRoot showLabel={showLabel} />
+                <div className="border-t border-strong mx-2" />
+                <AppSidebarItem
+                  item={{
+                    label: "Settings",
+                    icon: <SettingsIcon className="size-5" />,
+                    href: `/${workspaceSlug}/settings`,
+                    isActive: isSettingsPath,
+                    showLabel,
+                  }}
+                />
+              </div>
+            <div className="mt-auto pt-2">
+              <DesktopUserMenu />
             </div>
           </div>
         </ContextMenu.Trigger>
