@@ -58,8 +58,8 @@ export class ApiTokenStore implements IApiTokenStore {
    * fetch all the API tokens
    */
   fetchApiTokens = async () =>
-    await this.apiTokenService.list().then((response) => {
-      const apiTokensObject: { [apiTokenId: string]: IApiToken } = response.reduce((accumulator, currentWebhook) => {
+    await this.apiTokenService.list().then((response: IApiToken[]) => {
+      const apiTokensObject: { [apiTokenId: string]: IApiToken } = response.reduce((accumulator: { [apiTokenId: string]: IApiToken }, currentWebhook: IApiToken) => {
         if (currentWebhook && currentWebhook.id) {
           return { ...accumulator, [currentWebhook.id]: currentWebhook };
         }
@@ -76,7 +76,7 @@ export class ApiTokenStore implements IApiTokenStore {
    * @param tokenId
    */
   fetchApiTokenDetails = async (tokenId: string) =>
-    await this.apiTokenService.retrieve(tokenId).then((response) => {
+    await this.apiTokenService.retrieve(tokenId).then((response: IApiToken) => {
       runInAction(() => {
         this.apiTokens = { ...this.apiTokens, [response.id]: response };
       });
@@ -88,7 +88,7 @@ export class ApiTokenStore implements IApiTokenStore {
    * @param data
    */
   createApiToken = async (data: Partial<IApiToken>) =>
-    await this.apiTokenService.create(data).then((response) => {
+    await this.apiTokenService.create(data).then((response: IApiToken) => {
       runInAction(() => {
         this.apiTokens = { ...this.apiTokens, [response.id]: response };
       });
