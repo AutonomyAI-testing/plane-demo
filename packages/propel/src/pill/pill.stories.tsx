@@ -5,7 +5,7 @@ const meta = {
   title: "Components/Pill",
   component: Pill,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   tags: ["autodocs"],
   args: {
@@ -77,7 +77,7 @@ export const Large: Story = {
 export const AllVariants: Story = {
   render() {
     return (
-      <div className="space-y-4">
+      <div className="rounded-lg bg-surface-1 p-6">
         <div className="flex flex-wrap gap-2">
           <Pill variant={EPillVariant.DEFAULT}>Default</Pill>
           <Pill variant={EPillVariant.PRIMARY}>Primary</Pill>
@@ -94,12 +94,11 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render() {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Pill size={EPillSize.SM}>Small</Pill>
-          <Pill size={EPillSize.MD}>Medium</Pill>
-          <Pill size={EPillSize.LG}>Large</Pill>
-        </div>
+      <div className="flex items-center gap-2">
+        <Pill size={EPillSize.XS}>Extra Small</Pill>
+        <Pill size={EPillSize.SM}>Small</Pill>
+        <Pill size={EPillSize.MD}>Medium</Pill>
+        <Pill size={EPillSize.LG}>Large</Pill>
       </div>
     );
   },
@@ -108,13 +107,11 @@ export const AllSizes: Story = {
 export const WithNumbers: Story = {
   render() {
     return (
-      <div className="space-y-4">
-        <div className="flex flex-wrap gap-2">
-          <Pill variant={EPillVariant.PRIMARY}>3</Pill>
-          <Pill variant={EPillVariant.SUCCESS}>12</Pill>
-          <Pill variant={EPillVariant.WARNING}>99+</Pill>
-          <Pill variant={EPillVariant.ERROR}>!</Pill>
-        </div>
+      <div className="flex flex-wrap gap-2">
+        <Pill variant={EPillVariant.PRIMARY}>3</Pill>
+        <Pill variant={EPillVariant.SUCCESS}>12</Pill>
+        <Pill variant={EPillVariant.WARNING}>99+</Pill>
+        <Pill variant={EPillVariant.ERROR}>!</Pill>
       </div>
     );
   },
@@ -123,9 +120,9 @@ export const WithNumbers: Story = {
 export const StatusExamples: Story = {
   render() {
     return (
-      <div className="space-y-4">
+      <div className="rounded-lg bg-surface-1 p-6">
         <div className="space-y-2">
-          <h3 className="text-13 font-medium">Task Status</h3>
+          <h3 className="text-13 font-medium text-primary">Task Status</h3>
           <div className="flex flex-wrap gap-2">
             <Pill variant={EPillVariant.DEFAULT}>Draft</Pill>
             <Pill variant={EPillVariant.WARNING}>In Progress</Pill>

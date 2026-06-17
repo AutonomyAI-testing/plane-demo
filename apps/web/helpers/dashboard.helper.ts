@@ -37,6 +37,8 @@ export const getCustomDates = (duration: EDurationFilters, customDates: string[]
       return `${firstDay};after,${lastDay};before`;
     case EDurationFilters.CUSTOM:
       return customDates.join(",");
+    default:
+      return "";
   }
 };
 
@@ -82,7 +84,7 @@ export const getTabKey = (duration: EDurationFilters, tab: TIssuesListTypes | un
  * @param customDates
  */
 export const getDurationFilterDropdownLabel = (duration: EDurationFilters, customDates: string[]): string => {
-  if (duration !== "custom") return DURATION_FILTER_OPTIONS.find((option) => option.key === duration)?.label ?? "";
+  if (duration !== "custom") return DURATION_FILTER_OPTIONS.find((option: { key: string; label: string }) => option.key === duration)?.label ?? "";
   else {
     const afterDate = customDates.find((date) => date.includes("after"))?.split(";")[0];
     const beforeDate = customDates.find((date) => date.includes("before"))?.split(";")[0];
