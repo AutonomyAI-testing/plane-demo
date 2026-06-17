@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Pill, EPillVariant, EPillSize } from "./pill";
 
+// Reusable icon for story demonstrations
+const CircleIcon = (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+    <circle cx="6" cy="6" r="6" fill="currentColor" />
+  </svg>
+);
+
 const meta = {
   title: "Components/Pill",
   component: Pill,
@@ -132,6 +139,156 @@ export const StatusExamples: Story = {
             <Pill variant={EPillVariant.INFO}>In Review</Pill>
             <Pill variant={EPillVariant.SUCCESS}>Completed</Pill>
             <Pill variant={EPillVariant.ERROR}>Blocked</Pill>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithRemove: Story = {
+  args: {
+    variant: EPillVariant.WARNING,
+    children: "In Progress",
+    onRemove: () => alert("removed"),
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    variant: EPillVariant.PRIMARY,
+    children: "Priority",
+    icon: CircleIcon,
+  },
+};
+
+export const WithCount: Story = {
+  args: {
+    variant: EPillVariant.ERROR,
+    children: "Bugs",
+    count: 12,
+  },
+};
+
+export const Muted: Story = {
+  args: {
+    variant: EPillVariant.MUTED,
+    children: "Optional",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    variant: EPillVariant.SUCCESS,
+    children: "Completed",
+    disabled: true,
+  },
+};
+
+export const KitchenSink: Story = {
+  render() {
+    return (
+      <div className="space-y-6">
+        {/* Removable Pills */}
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium text-secondary">Removable</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.DEFAULT} onRemove={() => {}}>
+              Default
+            </Pill>
+            <Pill variant={EPillVariant.PRIMARY} onRemove={() => {}}>
+              Primary
+            </Pill>
+            <Pill variant={EPillVariant.SUCCESS} onRemove={() => {}}>
+              Success
+            </Pill>
+            <Pill variant={EPillVariant.WARNING} onRemove={() => {}}>
+              Warning
+            </Pill>
+            <Pill variant={EPillVariant.ERROR} onRemove={() => {}}>
+              Error
+            </Pill>
+            <Pill variant={EPillVariant.INFO} onRemove={() => {}}>
+              Info
+            </Pill>
+          </div>
+        </div>
+
+        {/* With Icon */}
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium text-secondary">With Icon</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.DEFAULT} icon={CircleIcon}>
+              Default
+            </Pill>
+            <Pill variant={EPillVariant.PRIMARY} icon={CircleIcon}>
+              Primary
+            </Pill>
+            <Pill variant={EPillVariant.SUCCESS} icon={CircleIcon}>
+              Success
+            </Pill>
+          </div>
+        </div>
+
+        {/* With Count */}
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium text-secondary">With Count</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.ERROR} count={12}>
+              Bugs
+            </Pill>
+            <Pill variant={EPillVariant.WARNING} count={5}>
+              Warnings
+            </Pill>
+            <Pill variant={EPillVariant.INFO} count={99}>
+              Notifications
+            </Pill>
+          </div>
+        </div>
+
+        {/* Muted Variant */}
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium text-secondary">Muted variant</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.MUTED}>Optional</Pill>
+            <Pill variant={EPillVariant.MUTED}>Archived</Pill>
+            <Pill variant={EPillVariant.MUTED}>Hidden</Pill>
+            <Pill variant={EPillVariant.MUTED}>Inactive</Pill>
+          </div>
+        </div>
+
+        {/* Disabled State */}
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium text-secondary">Disabled</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.SUCCESS} disabled>
+              Completed
+            </Pill>
+            <Pill variant={EPillVariant.WARNING} disabled>
+              In Progress
+            </Pill>
+            <Pill variant={EPillVariant.ERROR} disabled>
+              Blocked
+            </Pill>
+            <Pill variant={EPillVariant.PRIMARY} disabled>
+              Active
+            </Pill>
+          </div>
+        </div>
+
+        {/* Combined Features */}
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium text-secondary">Combined</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.ERROR} icon="🐛" count={12} onRemove={() => {}}>
+              Bugs
+            </Pill>
+            <Pill variant={EPillVariant.WARNING} icon="⚡" count={3} onRemove={() => {}}>
+              Priority
+            </Pill>
+            <Pill variant={EPillVariant.INFO} icon="👁" count={5} onRemove={() => {}}>
+              In Review
+            </Pill>
           </div>
         </div>
       </div>
