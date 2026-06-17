@@ -8,6 +8,7 @@ export enum EPillVariant {
   WARNING = "warning",
   ERROR = "error",
   INFO = "info",
+  MUTED = "muted",
 }
 
 export enum EPillSize {
@@ -30,7 +31,8 @@ export type TPillVariant =
   | EPillVariant.SUCCESS
   | EPillVariant.WARNING
   | EPillVariant.ERROR
-  | EPillVariant.INFO;
+  | EPillVariant.INFO
+  | EPillVariant.MUTED;
 export type TPillSize = EPillSize.SM | EPillSize.MD | EPillSize.LG | EPillSize.XS;
 
 export interface PillProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -39,6 +41,10 @@ export interface PillProps extends React.HTMLAttributes<HTMLSpanElement> {
   className?: string;
   children: React.ReactNode;
   radius?: TRadius;
+  onRemove?: () => void;
+  icon?: React.ReactNode;
+  count?: number;
+  disabled?: boolean;
 }
 
 const pillVariants = {
@@ -48,6 +54,7 @@ const pillVariants = {
   [EPillVariant.WARNING]: "bg-amber-50 text-amber-700 border border-amber-200",
   [EPillVariant.ERROR]: "bg-red-50 text-danger-primary border border-danger-subtle",
   [EPillVariant.INFO]: "bg-blue-50 text-blue-700 border border-blue-200",
+  [EPillVariant.MUTED]: "bg-surface-1 text-tertiary border border-subtle-1",
 };
 
 const pillSizes = {
@@ -69,27 +76,48 @@ const Pill = React.forwardRef(function Pill(
     radius = ERadius.CIRCLE,
     className,
     children,
+    onRemove,
+    icon,
+    count,
+    disabled = false,
     ...props
   }: PillProps,
   ref: React.ForwardedRef<HTMLSpanElement>
 ) {
+  // Prevent remove action from bubbling to parent click handlers
+  const handleRemoveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onRemove?.();
+  };
+
   return (
     <span
       ref={ref}
       className={cn(
-        // Base styles
-        "inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap",
-        // Variant styles
+        // Base styles: inline-flex with gap for icon/text/count/remove spacing
+        "inline-flex items-center justify-center gap-1.5 rounded-full font-medium whitespace-nowrap",
         pillVariants[variant],
-        // Size styles
         pillSizes[size],
-        // Radius styles
         pillRadius[radius],
+        // Disabled state: visual-only, prevents all pointer interactions
+        disabled && "opacity-50 cursor-not-allowed pointer-events-none",
         className
       )}
       {...props}
     >
-      {children}
+      {icon && <span className="inline-flex items-center">{icon}</span>}
+      <span>{children}</span>
+      {count !== undefined && <span className="font-semibold">{count}</span>}
+      {onRemove && (
+        <button
+          type="button"
+          onClick={handleRemoveClick}
+          aria-label="Remove"
+          className="inline-flex items-center justify-center hover:opacity-70 transition-opacity"
+        >
+          <span className="text-xs">×</span>
+        </button>
+      )}
     </span>
   );
 });
