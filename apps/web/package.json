@@ -14,7 +14,9 @@
     "check:types": "react-router typegen && tsc --noEmit",
     "check:format": "prettier . --cache --check",
     "fix:lint": "eslint . --cache --cache-location node_modules/.cache/eslint/ --fix --max-warnings=14367",
-    "fix:format": "prettier . --cache --write"
+    "fix:format": "prettier . --cache --write",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "catalog:",
@@ -80,12 +82,15 @@
     "@plane/tailwind-config": "workspace:*",
     "@plane/typescript-config": "workspace:*",
     "@react-router/dev": "catalog:",
+    "@storybook/addon-docs": "9.1.10",
+    "@storybook/react-vite": "9.1.10",
     "@tailwindcss/typography": "0.5.19",
     "@types/lodash-es": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-color": "^3.0.6",
     "@types/react-dom": "catalog:",
+    "storybook": "9.1.17",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-tsconfig-paths": "^5.1.4"
