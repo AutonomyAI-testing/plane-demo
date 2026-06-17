@@ -76,7 +76,7 @@ export const badgeStyling: IBadgeStyling = {
   },
 
   success: {
-    default: `text-on-color bg-green-500`,
+    default: `text-on-color bg-success-primary`,
     hover: `hover:bg-green-600`,
     disabled: `cursor-not-allowed !bg-green-300`,
   },
@@ -92,7 +92,7 @@ export const badgeStyling: IBadgeStyling = {
   },
 
   warning: {
-    default: `text-on-color bg-amber-500`,
+    default: `text-on-color bg-warning-primary`,
     hover: `hover:bg-amber-600`,
     disabled: `cursor-not-allowed !bg-amber-300`,
   },
@@ -108,7 +108,7 @@ export const badgeStyling: IBadgeStyling = {
   },
 
   destructive: {
-    default: `text-on-color bg-red-500`,
+    default: `text-on-color bg-danger-primary`,
     hover: `hover:bg-red-600`,
     disabled: `cursor-not-allowed !bg-red-300`,
   },
@@ -125,18 +125,42 @@ export const badgeStyling: IBadgeStyling = {
 };
 
 export const getBadgeStyling = (variant: TBadgeVariant, size: TBadgeSizes, disabled: boolean = false): string => {
-  let tempVariant: string = ``;
   const currentVariant = badgeStyling[variant];
+  const variantClasses = `${currentVariant.default} ${disabled ? currentVariant.disabled : currentVariant.hover}`;
+  const sizeClasses = badgeSizeStyling[size];
 
-  tempVariant = `${currentVariant.default} ${disabled ? currentVariant.disabled : currentVariant.hover}`;
-
-  let tempSize: string = ``;
-  if (size) tempSize = badgeSizeStyling[size];
-  return `${tempVariant} ${tempSize}`;
+  return `${variantClasses} ${sizeClasses}`;
 };
 
 export const getIconStyling = (size: TBadgeSizes): string => {
-  let icon: string = ``;
-  if (size) icon = badgeIconStyling[size];
-  return icon;
+  return badgeIconStyling[size];
+};
+
+// Map each badge variant to its corresponding status dot color.
+// Solid variants use translucent white for contrast against colored backgrounds,
+// while accent/outline variants match their semantic color tokens.
+const DOT_COLOR_MAP: Record<TBadgeVariant, string> = {
+  // Solid variants use translucent white dot for contrast
+  primary: "bg-white/70",
+  success: "bg-white/70",
+  warning: "bg-white/70",
+  destructive: "bg-white/70",
+  // Accent variants use semantic colors
+  "accent-primary": "bg-accent-primary",
+  "accent-neutral": "bg-inverse",
+  "accent-success": "bg-success-primary",
+  "accent-warning": "bg-warning-primary",
+  "accent-destructive": "bg-danger-primary",
+  // Outline variants use semantic colors
+  "outline-primary": "bg-accent-primary",
+  "outline-neutral": "bg-inverse",
+  "outline-success": "bg-success-primary",
+  "outline-warning": "bg-warning-primary",
+  "outline-destructive": "bg-danger-primary",
+  // Neutral variant
+  neutral: "bg-inverse",
+};
+
+export const getDotColor = (variant: TBadgeVariant): string => {
+  return DOT_COLOR_MAP[variant];
 };
