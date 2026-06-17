@@ -5,7 +5,7 @@ const meta = {
   title: "Components/Pill",
   component: Pill,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   tags: ["autodocs"],
   args: {
