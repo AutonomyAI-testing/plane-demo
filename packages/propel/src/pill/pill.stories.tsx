@@ -78,13 +78,16 @@ export const AllVariants: Story = {
   render() {
     return (
       <div className="space-y-4">
-        <div className="flex flex-wrap gap-2">
-          <Pill variant={EPillVariant.DEFAULT}>Default</Pill>
-          <Pill variant={EPillVariant.PRIMARY}>Primary</Pill>
-          <Pill variant={EPillVariant.SUCCESS}>Success</Pill>
-          <Pill variant={EPillVariant.WARNING}>Warning</Pill>
-          <Pill variant={EPillVariant.ERROR}>Error</Pill>
-          <Pill variant={EPillVariant.INFO}>Info</Pill>
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium">All Variants</h3>
+          <div className="flex flex-wrap gap-2">
+            <Pill variant={EPillVariant.DEFAULT}>Default</Pill>
+            <Pill variant={EPillVariant.PRIMARY}>Primary</Pill>
+            <Pill variant={EPillVariant.SUCCESS}>Success</Pill>
+            <Pill variant={EPillVariant.WARNING}>Warning</Pill>
+            <Pill variant={EPillVariant.ERROR}>Error</Pill>
+            <Pill variant={EPillVariant.INFO}>Info</Pill>
+          </div>
         </div>
       </div>
     );
@@ -94,12 +97,11 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render() {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Pill size={EPillSize.SM}>Small</Pill>
-          <Pill size={EPillSize.MD}>Medium</Pill>
-          <Pill size={EPillSize.LG}>Large</Pill>
-        </div>
+      <div className="flex items-center gap-2">
+        <Pill size={EPillSize.XS}>Extra Small</Pill>
+        <Pill size={EPillSize.SM}>Small</Pill>
+        <Pill size={EPillSize.MD}>Medium</Pill>
+        <Pill size={EPillSize.LG}>Large</Pill>
       </div>
     );
   },
@@ -134,6 +136,52 @@ export const StatusExamples: Story = {
             <Pill variant={EPillVariant.ERROR}>Blocked</Pill>
           </div>
         </div>
+      </div>
+    );
+  },
+};
+
+export const AllVariantsWithDot: Story = {
+  parameters: { layout: "fullscreen" },
+  render() {
+    const variants = [
+      { variant: EPillVariant.DEFAULT, label: "Default" },
+      { variant: EPillVariant.PRIMARY, label: "Primary" },
+      { variant: EPillVariant.SUCCESS, label: "Success" },
+      { variant: EPillVariant.WARNING, label: "Warning" },
+      { variant: EPillVariant.ERROR, label: "Error" },
+      { variant: EPillVariant.INFO, label: "Info" },
+    ];
+    const sizes = [
+      { size: EPillSize.XS, label: "XS" },
+      { size: EPillSize.SM, label: "SM" },
+      { size: EPillSize.MD, label: "MD" },
+      { size: EPillSize.LG, label: "LG" },
+    ];
+    return (
+      <div className="space-y-6 p-8">
+        <div className="space-y-2">
+          <h3 className="text-13 font-medium">All Variants with Status Dot</h3>
+          <div className="flex flex-wrap gap-2">
+            {variants.map((v) => (
+              <Pill key={v.label} variant={v.variant}>
+                {v.label}
+              </Pill>
+            ))}
+          </div>
+        </div>
+        {sizes.map((s) => (
+          <div key={s.label} className="space-y-2">
+            <h3 className="text-13 font-medium">Size: {s.label}</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              {variants.map((v) => (
+                <Pill key={v.label} variant={v.variant} size={s.size}>
+                  {v.label}
+                </Pill>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     );
   },
