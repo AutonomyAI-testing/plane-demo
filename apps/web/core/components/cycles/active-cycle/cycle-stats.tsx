@@ -47,6 +47,10 @@ export type ActiveCycleStatsProps = {
   cycleIssueDetails?: ActiveCycleIssueDetails | { nextPageResults: boolean };
 };
 
+// Shared tab button styles for consistency across all three tabs
+const TAB_BUTTON_CLASSES =
+  "relative z-[1] font-semibold text-11 rounded-[3px] py-1.5 text-placeholder focus:outline-none transition duration-500";
+
 export const ActiveCycleStats = observer(function ActiveCycleStats(props: ActiveCycleStatsProps) {
   const { workspaceSlug, projectId, cycle, cycleId, handleFiltersUpdate, cycleIssueDetails } = props;
   // local storage
@@ -64,6 +68,7 @@ export const ActiveCycleStats = observer(function ActiveCycleStats(props: Active
   const assigneesResolvedPath = resolvedTheme === "light" ? lightAssigneeAsset : darkAssigneeAsset;
   const labelsResolvedPath = resolvedTheme === "light" ? lightLabelAsset : darkLabelAsset;
 
+  // Map tab name to tab index for controlled Tab.Group component
   const currentValue = (tab: string | null) => {
     switch (tab) {
       case "Priority-Issues":
@@ -105,6 +110,7 @@ export const ActiveCycleStats = observer(function ActiveCycleStats(props: Active
         as={Fragment}
         defaultIndex={currentValue(tab)}
         onChange={(i) => {
+          // Persist active tab selection to localStorage
           switch (i) {
             case 0:
               return setTab("Priority-Issues");
@@ -127,39 +133,30 @@ export const ActiveCycleStats = observer(function ActiveCycleStats(props: Active
         >
           <Tab
             className={({ selected }) =>
-              cn(
-                "relative z-[1] font-semibold text-11 rounded-[3px] py-1.5 text-placeholder focus:outline-none transition duration-500",
-                {
-                  "text-tertiary bg-surface-1": selected,
-                  "hover:text-tertiary": !selected,
-                }
-              )
+              cn(TAB_BUTTON_CLASSES, {
+                "text-tertiary bg-surface-1": selected,
+                "hover:text-tertiary": !selected,
+              })
             }
           >
             {t("project_cycles.active_cycle.priority_issue")}
           </Tab>
           <Tab
             className={({ selected }) =>
-              cn(
-                "relative z-[1] font-semibold text-11 rounded-[3px] py-1.5 text-placeholder focus:outline-none transition duration-500",
-                {
-                  "text-tertiary bg-surface-1": selected,
-                  "hover:text-tertiary": !selected,
-                }
-              )
+              cn(TAB_BUTTON_CLASSES, {
+                "text-tertiary bg-surface-1": selected,
+                "hover:text-tertiary": !selected,
+              })
             }
           >
             {t("project_cycles.active_cycle.assignees")}
           </Tab>
           <Tab
             className={({ selected }) =>
-              cn(
-                "relative z-[1] font-semibold text-11 rounded-[3px] py-1.5 text-placeholder focus:outline-none transition duration-500",
-                {
-                  "text-tertiary bg-surface-1": selected,
-                  "hover:text-tertiary": !selected,
-                }
-              )
+              cn(TAB_BUTTON_CLASSES, {
+                "text-tertiary bg-surface-1": selected,
+                "hover:text-tertiary": !selected,
+              })
             }
           >
             {t("project_cycles.active_cycle.labels")}
@@ -195,6 +192,7 @@ export const ActiveCycleStats = observer(function ActiveCycleStats(props: Active
                                 issueId: issue.id,
                                 isArchived: !!issue.archived_at,
                               });
+                              // Apply priority filter when opening issue peek view to maintain context
                               handleFiltersUpdate([
                                 { property: "priority", operator: "in", value: ["urgent", "high"] },
                               ]);
@@ -345,9 +343,7 @@ export const ActiveCycleStats = observer(function ActiveCycleStats(props: Active
                     onClick={
                       label.label_id
                         ? () => {
-                            if (label.label_id) {
-                              handleFiltersUpdate([{ property: "label_id", operator: "in", value: [label.label_id] }]);
-                            }
+                            handleFiltersUpdate([{ property: "label_id", operator: "in", value: [label.label_id as string] }]);
                           }
                         : undefined
                     }
