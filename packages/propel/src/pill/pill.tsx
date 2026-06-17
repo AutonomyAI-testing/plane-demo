@@ -39,6 +39,11 @@ export interface PillProps extends React.HTMLAttributes<HTMLSpanElement> {
   className?: string;
   children: React.ReactNode;
   radius?: TRadius;
+  /**
+   * Controls whether a status indicator dot is shown before the label.
+   * Defaults to true to emphasize status semantics in most use cases.
+   */
+  showDot?: boolean;
 }
 
 const pillVariants = {
@@ -48,6 +53,16 @@ const pillVariants = {
   [EPillVariant.WARNING]: "bg-amber-50 text-amber-700 border border-amber-200",
   [EPillVariant.ERROR]: "bg-red-50 text-danger-primary border border-danger-subtle",
   [EPillVariant.INFO]: "bg-blue-50 text-blue-700 border border-blue-200",
+};
+
+// Dot colors match the semantic meaning of each variant for visual consistency
+const dotColorVariants = {
+  [EPillVariant.DEFAULT]: "bg-secondary",
+  [EPillVariant.PRIMARY]: "bg-accent-primary",
+  [EPillVariant.SUCCESS]: "bg-success-primary",
+  [EPillVariant.WARNING]: "bg-amber-500",
+  [EPillVariant.ERROR]: "bg-danger-primary",
+  [EPillVariant.INFO]: "bg-blue-500",
 };
 
 const pillSizes = {
@@ -67,6 +82,7 @@ const Pill = React.forwardRef(function Pill(
     variant = EPillVariant.DEFAULT,
     size = EPillSize.MD,
     radius = ERadius.CIRCLE,
+    showDot = true,
     className,
     children,
     ...props
@@ -85,10 +101,15 @@ const Pill = React.forwardRef(function Pill(
         pillSizes[size],
         // Radius styles
         pillRadius[radius],
+        // Add gap only when dot is present to prevent extra spacing
+        showDot && "gap-1.5",
         className
       )}
       {...props}
     >
+      {showDot && (
+        <span className={cn("inline-block flex-shrink-0 w-1.5 h-1.5 rounded-full", dotColorVariants[variant])} />
+      )}
       {children}
     </span>
   );

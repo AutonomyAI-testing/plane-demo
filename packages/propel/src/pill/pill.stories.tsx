@@ -5,7 +5,7 @@ const meta = {
   title: "Components/Pill",
   component: Pill,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   tags: ["autodocs"],
   args: {
@@ -91,6 +91,23 @@ export const AllVariants: Story = {
   },
 };
 
+export const WithDot: Story = {
+  render() {
+    return (
+      <div className="space-y-4">
+        <div className="flex flex-wrap gap-2">
+          <Pill variant={EPillVariant.DEFAULT}>Draft</Pill>
+          <Pill variant={EPillVariant.PRIMARY}>In Progress</Pill>
+          <Pill variant={EPillVariant.INFO}>In Review</Pill>
+          <Pill variant={EPillVariant.SUCCESS}>Completed</Pill>
+          <Pill variant={EPillVariant.WARNING}>Blocked</Pill>
+          <Pill variant={EPillVariant.ERROR}>Error</Pill>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const AllSizes: Story = {
   render() {
     return (
@@ -133,6 +150,35 @@ export const StatusExamples: Story = {
             <Pill variant={EPillVariant.SUCCESS}>Completed</Pill>
             <Pill variant={EPillVariant.ERROR}>Blocked</Pill>
           </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithoutDot: Story = {
+  render() {
+    return (
+      <div className="space-y-4">
+        <div className="flex flex-wrap gap-2">
+          <Pill variant={EPillVariant.DEFAULT} showDot={false}>
+            Default
+          </Pill>
+          <Pill variant={EPillVariant.PRIMARY} showDot={false}>
+            Primary
+          </Pill>
+          <Pill variant={EPillVariant.SUCCESS} showDot={false}>
+            Success
+          </Pill>
+          <Pill variant={EPillVariant.WARNING} showDot={false}>
+            Warning
+          </Pill>
+          <Pill variant={EPillVariant.ERROR} showDot={false}>
+            Error
+          </Pill>
+          <Pill variant={EPillVariant.INFO} showDot={false}>
+            Info
+          </Pill>
         </div>
       </div>
     );
