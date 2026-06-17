@@ -37,6 +37,8 @@ export const getCustomDates = (duration: EDurationFilters, customDates: string[]
       return `${firstDay};after,${lastDay};before`;
     case EDurationFilters.CUSTOM:
       return customDates.join(",");
+    default:
+      return "";
   }
 };
 
@@ -82,14 +84,15 @@ export const getTabKey = (duration: EDurationFilters, tab: TIssuesListTypes | un
  * @param customDates
  */
 export const getDurationFilterDropdownLabel = (duration: EDurationFilters, customDates: string[]): string => {
-  if (duration !== "custom") return DURATION_FILTER_OPTIONS.find((option) => option.key === duration)?.label ?? "";
-  else {
-    const afterDate = customDates.find((date) => date.includes("after"))?.split(";")[0];
-    const beforeDate = customDates.find((date) => date.includes("before"))?.split(";")[0];
-
-    if (afterDate && beforeDate) return `${renderFormattedDate(afterDate)} - ${renderFormattedDate(beforeDate)}`;
-    else if (afterDate) return `After ${renderFormattedDate(afterDate)}`;
-    else if (beforeDate) return `Before ${renderFormattedDate(beforeDate)}`;
-    else return "";
+  if (duration !== "custom") {
+    return DURATION_FILTER_OPTIONS.find((option: { key: EDurationFilters; label: string }) => option.key === duration)?.label ?? "";
   }
+  
+  const afterDate = customDates.find((date) => date.includes("after"))?.split(";")[0];
+  const beforeDate = customDates.find((date) => date.includes("before"))?.split(";")[0];
+
+  if (afterDate && beforeDate) return `${renderFormattedDate(afterDate)} - ${renderFormattedDate(beforeDate)}`;
+  if (afterDate) return `After ${renderFormattedDate(afterDate)}`;
+  if (beforeDate) return `Before ${renderFormattedDate(beforeDate)}`;
+  return "";
 };
